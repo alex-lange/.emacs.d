@@ -85,6 +85,14 @@ Change backup directory
 (global-set-key (kbd "s-<right>") 'windmove-right)
 #+end_src
 ** Appearance
+*** UTF-8
+From sachc from http://www.wisdomandwonder.com/wordpress/wp-content/uploads/2014/03/C3F.html
+
+#+BEGIN_SRC emacs-lisp
+(prefer-coding-system 'utf-8)
+(when (display-graphic-p)
+  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
+#+END_SRC
 *** Window appearance
 Disable GUI aspects of emacs
 #+begin_src emacs-lisp
@@ -114,6 +122,16 @@ Disable GUI aspects of emacs
 *** Mode line
 #+begin_src emacs-lisp
 (use-package smart-mode-line)
+#+end_src
+** Publishing
+*** UTF-8 checkboxes
+This snippet turns =- [X]= into ☑ and =- [ ]= into ☐, but leaves =[-]= alone.
+#+begin_src emacs-lisp
+(setq org-html-checkbox-type 'unicode)
+(setq org-html-checkbox-types
+ '((unicode (on . "<span class=\"task-done\">&#x2611;</span>")
+            (off . "<span class=\"task-todo\">&#x2610;</span>")
+            (trans . "<span class=\"task-in-progress\">[-]</span>"))))
 #+end_src
 ** Org
 *** Appearance
