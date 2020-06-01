@@ -134,6 +134,12 @@ This snippet turns =- [X]= into ☑ and =- [ ]= into ☐, but leaves =[-]= alone
             (trans . "<span class=\"task-in-progress\">[-]</span>"))))
 #+end_src
 ** Org
+*** Keyboard Shortcuts
+#+begin_src emacs-lisp
+(bind-key "C-c a" 'org-agenda)
+#+end_src
+*** Navigation
+
 *** Appearance
 Most of this comes from [[ https://zzamboni.org/post/beautifying-org-mode-in-emacs/][Beautifying Org Mode in Emacs]]
 **** Indent mode
@@ -177,4 +183,31 @@ Display text lines that are not headlines with virtual spaces in order to align 
      `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.2))))
      `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.3))))
      `(org-document-title ((t (,@headline ,@variable-tuple :height 2.0 :underline nil))))))
+#+end_src
+*** Taking notes
+Set up defaults
+
+#+begin_src emacs-lisp
+  (setq org-directory "~/org")
+  (setq org-default-notes-file "~/org/organizer.org")
+#+end_src
+*** Capture
+#+begin_src emacs-lisp
+(use-package org-capture
+  :ensure nil
+  :after org
+  :preface
+  (defvar my/org-inbox-file "~/org/organizer.org")
+  :custom
+  (org-capture-templates
+    `(("t" "Quick task" entry
+      (file ,my/org-inbox-file "Inbox")
+      "* TODO %^{Task}\n"
+      :immediate-finish t)
+     ("." "Today" entry
+      (file ,my/org-inbox-file)
+      "* TODO %^{Task}\nSCHEDULED: %t\n"
+      :immediate-finish t))))
+
+
 #+end_src
