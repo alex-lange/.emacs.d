@@ -133,6 +133,25 @@ This snippet turns =- [X]= into ☑ and =- [ ]= into ☐, but leaves =[-]= alone
             (off . "<span class=\"task-todo\">&#x2610;</span>")
             (trans . "<span class=\"task-in-progress\">[-]</span>"))))
 #+end_src
+** Advanced Configuration
+*** Buffers
+Set initial buffer to a file so that I don't accidentally close emacs with stuff in scratch I mean to save.
+#+begin_src emacs-lisp
+(setq initial-buffer-choice "~/org/notes-inbox.org")
+#+end_src
+Do not kill/delete certain buffers
+#+begin_src emacs-lisp
+(defvar *protected-buffers* '("*scratch*")
+  "Buffers that cannot be killed.")
+
+(defun my/protected-buffers ()
+  "Protects some buffers from being killed."
+  (dolist (buffer *protected-buffers*)
+    (with-current-buffer buffer
+      (emacs-lock-mode 'kill))))
+
+(add-hook 'after-init-hook #'my/protected-buffers)
+#+end_src
 ** Org
 *** Keyboard Shortcuts
 #+begin_src emacs-lisp
