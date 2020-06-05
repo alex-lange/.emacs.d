@@ -204,6 +204,18 @@ Display text lines that are not headlines with virtual spaces in order to align 
      `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.3))))
      `(org-document-title ((t (,@headline ,@variable-tuple :height 2.0 :underline nil))))))
 #+end_src
+*** Easier Syncing
+Auto save org buffers
+#+begin_src emacs-lisp
+(add-hook 'auto-save-hook 'org-save-all-org-buffers)
+#+end_src
+Replace with saved file
+#+begin_src emacs-lisp
+(use-package autorevert
+  :ensure nil
+  :delight auto-revert-mode
+  :config (global-auto-revert-mode 1))
+#+end_src
 *** Tasks
 - The vertical bar separates the ‘TODO’ keywords (states that need action) from the ‘DONE’ states (which need no further action).
 - The paranthesis indicate keyqord shortcuts for setting the state.
