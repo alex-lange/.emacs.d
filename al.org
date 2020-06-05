@@ -270,6 +270,21 @@ Files to scan for TODOs
        "~/org/personal.org"
        "~/org/routines.org"))))
 #+end_src
+Custom agenda views
+#+begin_src emacs-lisp
+(defun my/org-agenda-skip-scheduled ()
+  (org-agenda-skip-entry-if 'scheduled 'deadline 'regexp "\n]+>"))
+(setq org-agenda-custom-commands
+      `(("a" "Agenda"
+         ((agenda "" ((org-agenda-span 2)))
+          ;; Unscheduled
+          (tags-todo "TODO=\"TODO\"" ; can subtract tags using "TODO=\"TODO\"-taga-tagb-tagc"
+                     ((org-agenda-skip-function 'my/org-agenda-skip-scheduled)
+                      (org-agenda-overriding-header "Unscheduled TODO entries: ")
+                      (org-agenda-sorting-strategy '(priority-down effort-up tag-up category-keep))))
+          ))))
+#+end_src
+
 More settings
 #+begin_src emacs-lisp
 (setq org-agenda-span 2)                   ; Look at 2 days at a time
