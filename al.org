@@ -293,6 +293,11 @@ More settings
 (setq org-agenda-skip-scheduled-if-done t)
 (setq org-agenda-skip-deadline-if-done t)
 #+end_src
+
+Start calendar week on Monday
+#+begin_src emacs-lisp
+(setq org-agenda-start-on-weekday 1)
+#+end_src
 *** Refile
 #+begin_src emacs-lisp
 (setq org-refile-allow-creating-parent-nodes 'confirm)
