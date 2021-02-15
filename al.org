@@ -20,7 +20,7 @@ Change backup directory
 #+end_src
 *** Add to the Struture template list
 #+begin_src emacs-lisp
-(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+(add-to-list 'org-structure-template-alist '("x" . "src emacs-lisp"))
 #+end_src
 *** Helm
 #+begin_src emacs-lisp
@@ -268,7 +268,8 @@ Files to scan for TODOs
      `("~/org/organizer.org"
        "~/org/work.org"
        "~/org/personal.org"
-       "~/org/routines.org"))))
+       "~/org/routines.org"
+       "~/org/journal/"))))
 #+end_src
 Custom agenda views
 #+begin_src emacs-lisp
@@ -297,6 +298,24 @@ More settings
 Start calendar week on Monday
 #+begin_src emacs-lisp
 (setq org-agenda-start-on-weekday 1)
+(setq calendar-week-start-day 1)
+#+end_src
+*** Journal
+#+begin_src emacs-lisp
+(use-package org-journal
+  :ensure t
+  :after org
+  :bind (("C-c j" . org-journal-new-entry))
+  :preface
+  ;; Change default prefix key; needs to be set before loading org-journal-journal
+  (setq org-journal-prefix-key "C-c ")
+  :custom
+  (org-journal-date-format "%b %e %Y (%A)")
+  (org-journal-dir (format "~/org/journal/" (format-time-string "%Y")))
+  ;; (org-journal-enable-encryption t)
+  (org-journal-file-format "%Y-%m-%d.org")
+   ;; (org-journal-enable-agenda-integration t)
+  (org-journal-time-format ""))
 #+end_src
 *** Refile
 #+begin_src emacs-lisp
