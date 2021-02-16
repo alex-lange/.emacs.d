@@ -161,6 +161,14 @@ Do not kill/delete certain buffers
 (add-hook 'after-init-hook #'my/protected-buffers)
 #+end_src
 ** Org
+#+begin_src emacs-lisp
+(use-package org
+  :ensure org-plus-contrib
+  :custom
+  (org-archive-location "~/org/archives/%s::")
+  (org-modules '(org-habit
+                 org-mouse)))
+#+end_src
 *** Keyboard Shortcuts
 #+begin_src emacs-lisp
 (bind-key "C-c r" 'org-capture)
@@ -302,6 +310,11 @@ More settings
 (setq org-agenda-show-log t)
 (setq org-agenda-skip-scheduled-if-done t)
 (setq org-agenda-skip-deadline-if-done t)
+(setq org-habit-completed-glyph ?✓)
+(setq org-habit-graph-column 80)
+(setq org-habit-show-habits-only-for-today nil)
+(setq org-habit-today-glyph ?‖)
+
 #+end_src
 
 Start calendar week on Monday
