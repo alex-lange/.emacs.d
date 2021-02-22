@@ -137,15 +137,15 @@ This snippet turns =- [X]= into ☑ and =- [ ]= into ☐, but leaves =[-]= alone
 *** Buffers
 Set initial buffer to a file so that I don't accidentally close emacs with stuff in scratch I mean to save.
 #+begin_src emacs-lisp
-(setq initial-buffer-choice
-  (lambda ()
-    (if (buffer-file-name)
-      (current-buffer) ;; leave as-is
-      (find-file "~/org/notes-inbox.org"))))
+;; (setq initial-buffer-choice
+;;  (lambda ()
+;;    (if (buffer-file-name)
+;;      (current-buffer) ;; leave as-is
+;;      (find-file "~/org/notes-inbox.org"))))
 #+end_src
 Do not split windows at startup if file is being opened
 #+begin_src emacs-lisp
-(set-frame-parameter nil 'unsplittable t)
+;;  (set-frame-parameter nil 'unsplittable t) ;
 #+end_src
 Do not kill/delete certain buffers
 #+begin_src emacs-lisp
