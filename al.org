@@ -251,8 +251,8 @@ Replace with saved file
 #+end_src
 *** Tasks
 - The vertical bar separates the ‘TODO’ keywords (states that need action) from the ‘DONE’ states (which need no further action).
-- The paranthesis indicate keyqord shortcuts for setting the state.
-- Tracking of state changes is done  by adding special markers ‘!’ (for a timestamp) or ‘@’ (for a note with timestamp) in the parentheses after the keywords.
+- The paranthesis indicate keyword shortcuts for setting the state.
+- Tracking of state changes is done by adding special markers ‘!’ (for a timestamp) or ‘@’ (for a note with timestamp) in the parentheses after the keywords.
 #+begin_src emacs-lisp
 (setq org-todo-keywords
       '((sequence
@@ -261,7 +261,13 @@ Replace with saved file
          "WAITING(w@/!)"
          "|"
          "DONE(x!)"
-         "CANCELLED(c@)")))
+         "CANCELLED(c@)")
+        (sequence
+         "HABIT(h)"
+         "|"
+         "DONE(X@)")))
+
+(setq org-log-into-drawer "LOGBOOK")
 #+end_src
 *** Taking notes
 Set up defaults
