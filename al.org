@@ -174,7 +174,24 @@ Do not kill/delete certain buffers
 (bind-key "C-c r" 'org-capture)
 (bind-key "C-c a" 'org-agenda)
 #+end_src
-*** Navigation
+**** Speed Commands
+#+begin_src emacs-lisp
+(setq org-use-effective-time t)
+
+(defun my/org-use-speed-commands-for-headings-and-lists ()
+  "Activate speed commands on list items too."
+  (or (and (looking-at org-outline-regexp) (looking-back "^\**" nil))
+      (save-excursion (and (looking-at (org-item-re)) (looking-back "^[ \t]*" nil)))))
+(setq org-use-speed-commands 'my/org-use-speed-commands-for-headings-and-lists)
+
+(use-package org
+  :config
+  (progn
+    (add-to-list 'org-speed-commands-user '("x" org-todo "DONE"))
+    (add-to-list 'org-speed-commands-user '("y" org-todo-yesterday "DONE"))
+    (add-to-list 'org-speed-commands-user '("s" call-interactively 'org-schedule))
+    (add-to-list 'org-speed-commands-user '("S" call-interactively 'org-sort))))
+#+end_src
 
 *** Appearance
 Most of this comes from [[ https://zzamboni.org/post/beautifying-org-mode-in-emacs/][Beautifying Org Mode in Emacs]]
