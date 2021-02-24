@@ -265,9 +265,28 @@ Replace with saved file
         (sequence
          "HABIT(h)"
          "|"
-         "DONE(X@)")))
-
+         "DONE(d@)")))
 (setq org-log-into-drawer "LOGBOOK")
+#+end_src
+**** Org TODO with Date
+Custom function so that I can mark a TODO as done on a specific date. From https://emacs.stackexchange.com/questions/9433/how-to-make-org-prompt-for-a-timestamp-when-changing-state-of-a-todo
+
+#+begin_src emacs-lisp
+(defun org-todo-with-date (&optional arg)
+  (interactive "P")
+  (cl-letf* ((org-read-date-prefer-future nil)
+             (my-current-time (org-read-date t t nil "when:" nil nil nil))
+             ((symbol-function 'current-time)
+              #'(lambda () my-current-time))
+             ((symbol-function 'org-today)
+              #'(lambda () (time-to-days my-current-time)))
+             ((symbol-function 'org-current-effective-time)
+              #'(lambda () my-current-time))
+             (super (symbol-function 'format-time-string))
+             ((symbol-function 'format-time-string)
+              #'(lambda (fmt &optional time time-zone)
+                  (funcall super fmt my-current-time time-zone))))
+    (org-todo arg)))
 #+end_src
 *** Taking notes
 Set up defaults
